@@ -6,7 +6,7 @@ import VideoList from './components/VideoList';
 import Login from './components/Login';
 import './App.css';
 
-const socket = io('http://127.0.0.1:5001');
+const socket = io('import.meta.env.VITE_API_URL');
 
 function App() {
   const [user, setUser] = useState(null);

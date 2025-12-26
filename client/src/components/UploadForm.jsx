@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5001';
 export default function UploadForm({ refreshVideos }) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -19,7 +19,7 @@ export default function UploadForm({ refreshVideos }) {
 
     setUploading(true);
     try {
-      await axios.post('http://127.0.0.1:5001/api/videos/upload', formData);
+      await axios.post('${API_URL}/api/videos/upload', formData);
       setFile(null);
       document.getElementById('fileInput').value = "";
       refreshVideos();

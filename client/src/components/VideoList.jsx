@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5001';
 
 export default function VideoList({ videos, userRole, refreshVideos }) {
   
   const handleDelete = async (id) => {
     if(!window.confirm("Are you sure you want to delete this video?")) return;
     try {
-      await axios.delete(`http://127.0.0.1:5001/api/videos/${id}`);
+      await axios.delete(`${API_URL}/api/videos/${id}`);
       refreshVideos();
     } catch (err) {
       alert("Failed to delete");
@@ -27,8 +28,8 @@ export default function VideoList({ videos, userRole, refreshVideos }) {
         <div key={video._id} className="video-card">
           <div className="player-wrapper">
             {video.status === 'safe' ? (
-              <video controls width="100%" height="100%" poster={video.thumbnail ? `http://127.0.0.1:5001/uploads/${video.thumbnail}` : null}
-      src={`http://127.0.0.1:5001/api/videos/stream/${video._id}`} />
+              <video controls width="100%" height="100%" poster={video.thumbnail ? `${API_URL}/uploads/${video.thumbnail}` : null}
+      src={`${API_URL}/api/videos/stream/${video._id}`} />
             ) : video.status === 'flagged' ? (
               <div className="flagged-screen">
                 <span style={{fontSize: '2rem'}}>⚠️</span>
