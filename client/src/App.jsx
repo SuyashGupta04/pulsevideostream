@@ -5,9 +5,8 @@ import UploadForm from './components/UploadForm';
 import VideoList from './components/VideoList';
 import Login from './components/Login';
 import './App.css';
-
-const socket = io('import.meta.env.VITE_API_URL');
-
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5001';
+const socket = io('${API_URL}');
 function App() {
   const [user, setUser] = useState(null);
   const [videos, setVideos] = useState([]);
@@ -27,7 +26,7 @@ function App() {
 
   const fetchVideos = async () => {
     try {
-      const res = await axios.get('http://127.0.0.1:5001/api/videos');
+      const res = await axios.get(`${API_URL}/api/videos`);
       setVideos(res.data);
     } catch (err) { console.error(err); }
   };
